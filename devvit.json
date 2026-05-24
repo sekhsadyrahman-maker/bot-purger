@@ -1,0 +1,42 @@
+{
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+  "name": "bot-purger",
+  "server": {
+    "dir": "dist/server",
+    "entry": "index.cjs"
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Purge User's Content",
+        "description": "Batch removes all comments/posts by this user in this subreddit.",
+        "location": ["comment", "post"],
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/purge-user"
+      }
+    ]
+  },
+  "forms": {
+    "purgeUser": "/internal/form/purge-user-submit"
+  },
+  "triggers": {
+    "onAppInstall": "/internal/triggers/on-app-install"
+  },
+  "scheduler": {
+    "tasks": {
+      "purge-task": {
+        "endpoint": "/internal/scheduler/purge-task"
+      }
+    }
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch"
+  },
+  "permissions": {
+    "redis": true,
+    "reddit": {
+      "scope": "moderator"
+    }
+  }
+}
